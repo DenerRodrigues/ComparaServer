@@ -20,6 +20,7 @@ from django.conf import settings
 urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^$', 'App.views.index'),
+                       url(r'^filter/', 'App.views.form_filtro'),
                        )
 
 if settings.LOCAL:
