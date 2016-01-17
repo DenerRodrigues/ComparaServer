@@ -19,10 +19,10 @@ class Provedor(models.Model):
 class Servidor(models.Model):
     descricao = models.CharField(max_length=120, verbose_name="Descricao", null=False)
     cpu = models.IntegerField(verbose_name="Cpu")
-    ram = models.CharField(max_length=10, verbose_name="Ram")
-    disco = models.CharField(max_length=10, verbose_name="Disco")
+    ram = models.IntegerField(verbose_name="Ram/Gb")
+    disco = models.IntegerField(verbose_name="Disco/Gb")
     so = models.CharField(max_length=60, verbose_name="Sistema Operacional")
-    preco = models.FloatField(verbose_name="Preco")
+    preco = models.FloatField(verbose_name="Preco/Mes")
     provedor = models.ForeignKey(Provedor, verbose_name="Provedor")
 
     def __unicode__(self):

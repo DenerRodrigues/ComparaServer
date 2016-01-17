@@ -1,18 +1,30 @@
 from django.shortcuts import render
-from models import Servidor
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from models import Servidor, Provedor
 
 
 # Create your views here.
 
 
-def index(request, pagina=1):
-    paginacao = Paginator(Servidor.objects.all(), 3)
-    try:
-        resumo = paginacao.page(pagina)
-        # Se a pagina nao for um numero inteiro, pega a primeira
-    except PageNotAnInteger:
-        resumo = paginacao.page(1)
-    except EmptyPage:
-        resumo = paginacao.page(paginacao.num_pages)
-    return render(request, "index.html", {'servidores': resumo.object_list})
+def index(request):
+    servidores = Servidor.objects.all()
+    provedores = Provedor.objects.all()
+    return render(request, "index.html", {'servidores': servidores,
+                                          'provedores': provedores,
+                                          'cpu': get_cpu(),
+                                          'ram': get_ram(),
+                                          'disco': get_disco()})
+
+
+def get_cpu():
+    list_cpu = list(set([s.cpu for s in Servidor.objects.all()]))
+    return list_cpu
+
+
+def get_ram():
+    list_ram = list(set([s.ram for s in Servidor.objects.all()]))
+    return list_ram
+
+
+def get_disco():
+    list_disco = list(set([s.disco for s in Servidor.objects.all()]))
+    return list_disco
