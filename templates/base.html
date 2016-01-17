@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Compare | Server</title>
+    {% block style %}
+        <link rel="stylesheet" type="text/css" href="/media/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/media/css/blog.css">
+    {% endblock style %}
+    {% block scripts %}
+        <script src="/media/js/bootstrap.js"></script>
+    {% endblock scripts %}
+</head>
+<body>
+
+{% block menu %}
+    <div class="blog-masthead" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <nav class="blog-nav">
+                    <a class="blog-nav-item active" href="/">Home</a>
+                    <a class="blog-nav-item" href="/">Provedor</a>
+                    <a class="blog-nav-item" href="/">Servidor</a>
+                    <a class="blog-nav-item" href="/">Django - Admin</a>
+                </nav>
+            </div>
+            <div class="navbar-collapse collapse">
+                <form class="navbar-form navbar-right" role="form"
+                      method="get">
+                    <div class="form-group">
+                        <input type="text" placeholder="Pesquisa" class="form-control"
+                               name="pesquisa">
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block conteudo %}
+
+{% endblock %}
+</body>
+</html>

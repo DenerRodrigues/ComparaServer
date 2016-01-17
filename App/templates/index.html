@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head lang="pt-br">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{% block conteudo %}
+    <div class="container-fluid">
+
+        <br/>
+
+        <div class="jumbotron"
+             style="background:url(http://www.craigpennings.com/c3/wp-content/uploads/2013/01/banner_bg.jpg) -40px -190px repeat-x">
+
+            <h2 style="color:#FFF;font-size:2.7em;line-height:45px">Planeje e Compare</h2>
+
+            <p style="color:#FFF">
+                Encontre o serviço e provedor que melhor se encaixa nas necessidades de sua empresa
+            </p>
+
+            <br/>
+
+        </div>
+
+
+        <div class="row col-md-9">
+
+            <div class="searchable-container">
+                <div class='itemss col-lg-12 clearfix' style='padding:10px 0; background:#F1F1F1'>
+
+                    <div class='pull-left col-md-5'>
+                        <div class='col-md-6'>
+                            <strong style='color:#777'>Provedor</strong>
+                        </div>
+                        <div class='col-md-6'>
+                            <strong style='color:#777'>Descricao</strong>
+                        </div>
+
+                    </div>
+                    <div class='pull-left col-md-5'>
+                        <div class='col-md-6'>
+                            <strong style='color:#777'>Recursos</strong>
+
+                        </div>
+                        <div class='col-md-6'>
+                            <strong style='color:#777'>Preço </strong>
+                            <small>(Reais)</small>
+                        </div>
+                    </div>
+
+                    <div class='pull-right col-md-2 text-right'><br/>
+
+                    </div>
+
+                </div>
+
+                {% for servidor in servidores %}
+                    <div class='items col-lg-12 clearfix'
+                         style='padding:11px 0; background:#F6F6F6'>
+
+                        <div class='content'>
+
+                            <div class='pull-left col-md-5 x'>
+                                <div class='col-md-6'><br/>
+                                    <small>{{ servidor.provedor }}</small>
+                                    <img src="{{ servidor.provedor.logomarca.url }}"
+                                         alt='' class='img-responsive'/>
+                                </div>
+                                <div class='col-md-6 text-left'><br/>
+                                    <h5>{{ servidor.descricao }}<br/>
+                                    </h5>
+                                </div>
+                            </div>
+
+                            <div class='pull-left col-md-5 y'>
+                                <div class='col-md-'><br/>
+                                    <div class="col-md-6">
+                                        <small><strong>CPU</strong>: {{ servidor.cpu }}</small>
+                                        <br/>
+                                        <small><strong>Ram</strong>: {{ servidor.ram }}</small>
+                                        <br/>
+                                        <small><strong>Disco</strong>: {{ servidor.disco }}</small>
+                                    </div>
+                                </div>
+                                <div class='col-md-6'>
+                                    <h3>R$ {{ servidor.preco }}
+                                        <small>/Mês</small>
+                                    </h3>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class='pull-right col-md-2 text-center'><br/>
+
+                            <button type='button' class='btn btn-success btn-modal'
+                                    data-toggle='modal'
+                                    data-target='#myModal'>
+                                Comprar
+                            </button>
+
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+</body>
+</html>
