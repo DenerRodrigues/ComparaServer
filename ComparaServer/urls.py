@@ -21,6 +21,7 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^$', 'App.views.index'),
                        url(r'^filter/', 'App.views.form_filtro'),
+                       url(r'^order/', 'App.views.form_order'),
                        )
 
 if settings.LOCAL:

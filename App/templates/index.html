@@ -8,176 +8,181 @@
 <body>
 {% block conteudo %}
     <div class="container-fluid">
+    <br/>
+
+    <div class="jumbotron"
+         style="background:url(http://www.craigpennings.com/c3/wp-content/uploads/2013/01/banner_bg.jpg) -40px -190px repeat-x">
+
+        <h2 style="color:#FFF;font-size:2.7em;line-height:45px">Planeje e Compare</h2>
+
+        <p style="color:#FFF">
+            Encontre o serviço e provedor que melhor se encaixa nas necessidades de sua empresa
+        </p>
 
         <br/>
+    </div>
 
-        <div class="jumbotron"
-             style="background:url(http://www.craigpennings.com/c3/wp-content/uploads/2013/01/banner_bg.jpg) -40px -190px repeat-x">
+    <div class="col-md-3">
+        <form id="form_filtro" role="form" action="/filter/"
+              method="get">
 
-            <h2 style="color:#FFF;font-size:2.7em;line-height:45px">Planeje e Compare</h2>
-
-            <p style="color:#FFF">
-                Encontre o serviço e provedor que melhor se encaixa nas necessidades de sua empresa
-            </p>
+            <div>
+                <button type="submit" class="btn btn-success">
+                    <i class="glyphicon glyphicon-search"></i>
+                    Filtrar por:
+                </button>
+            </div>
 
             <br/>
-
-        </div>
-
-
-        <div class="col-md-3">
-            <form id="form_filtro" role="form" action="/filter/"
-                  method="get">
-
-                <div>
-                    <button type="submit" class="btn btn-success">
-                        <i class="glyphicon glyphicon-search"></i>
-                        Filtrar por:
-                    </button>
+            <div class="">
+                <div class="form-group">
+                    <strong>Preço/Mês </strong>
+                    <small>(Reais) <strong>(Valor máximo)</strong></small>
+                    <input class="form-control input-lg" type="text" name="filter_price"
+                           placeholder="Preço">
                 </div>
 
+                <hr>
+                <strong>Provedor</strong>
                 <br/>
-                <div class="">
-                    <div class="form-group">
-                        <strong>Preço/Mês </strong>
-                        <small>(Reais)</small>
-                        <input class="form-control input-lg" id="input-search-price"
-                               placeholder="Preço"
-                               type="search">
-                    </div>
 
-                    <hr>
-                    <strong>Provedor</strong>
-                    <br/>
-
+                <div class="radio">
+                    <label>
+                        <input name="provider" class="provider" value="" checked=""
+                               type="radio"> Todos
+                    </label>
+                </div>
+                {% for provedor in provedores %}
                     <div class="radio">
                         <label>
-                            <input name="provider" class="provider" value="" checked=""
-                                   type="radio"> Todos
+                            <input name="provider" class="provider"
+                                   value="{{ provedor.descricao }}"
+                                   type="radio"> {{ provedor.descricao }}
                         </label>
-                    </div>
-                    {% for provedor in provedores %}
-                        <div class="radio">
-                            <label>
-                                <input name="provider" class="provider"
-                                       value="{{ provedor.descricao }}"
-                                       type="radio"> {{ provedor.descricao }}
-                            </label>
-                        </div>
-                    {% endfor %}
-                </div>
-
-                <div class="form-group"><br>
-                    <strong>CPU</strong>
-                    <select name="cpu_p" id="cpu_p" class="form-control">
-                        <option value="">Todas</option>
-                        {% for c in cpu %}
-                            <option onselect="" value="{{ c }}">{{ c }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="form-group"><br>
-                    <strong>Ram</strong>
-                    <select name="ram_p" id="ram_p" class="form-control">
-                        <option value="">Todas</option>
-                        {% for r in ram %}
-                            <option value="{{ r }}">{{ r }} Gb</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="form-group"><br>
-                    <strong>Disco</strong>
-                    <select name="disco_p" id="disco_p" class="form-control">
-                        <option value="">Todas</option>
-                        {% for d in disco %}
-                            <option value="{{ d }}">{{ d }} Gb</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </form>
-        </div>
-
-
-        <div class="row col-md-9">
-
-            <div class="searchable-container">
-                <div class='itemss col-lg-12 clearfix' style='padding:10px 0; background:#F1F1F1'>
-
-                    <div class='pull-left col-md-5'>
-                        <div class='col-md-6'>
-                            <strong style='color:#777'>Provedor</strong>
-                        </div>
-                        <div class='col-md-6'>
-                            <strong style='color:#777'>Descricao</strong>
-                        </div>
-
-                    </div>
-                    <div class='pull-left col-md-5'>
-                        <div class='col-md-6'>
-                            <strong style='color:#777'>Recursos</strong>
-
-                        </div>
-                        <div class='col-md-6'>
-                            <strong style='color:#777'>Preço </strong>
-                            <small>(Reais)</small>
-                        </div>
-                    </div>
-
-                    <div class='pull-right col-md-2 text-right'><br/>
-
-                    </div>
-
-                </div>
-
-                {% for servidor in servidores %}
-                    <div class='items col-lg-16 clearfix'
-                         style='padding:15px 0; background:#F6F6F6'>
-
-                        <div class='content'>
-
-                            <div class='pull-left col-md-5 x'>
-                                <div class='col-md-6'><br/>
-                                    <small>{{ servidor.provedor }}</small>
-                                    <img src="{{ servidor.provedor.logomarca.url }}"
-                                         alt='' class='img-responsive'/>
-                                </div>
-                                <div class='col-md-6 text-left'><br/>
-                                    <h5>{{ servidor.descricao }}<br/>
-                                    </h5>
-                                </div>
-                            </div>
-
-                            <div class='pull-left col-md-5 y'>
-                                <div class='col-md-'><br/>
-                                    <div class="col-md-6">
-                                        <small><strong>CPU</strong>: {{ servidor.cpu }}</small>
-                                        <br/>
-                                        <small><strong>Ram</strong>: {{ servidor.ram }} Gb</small>
-                                        <br/>
-                                        <small><strong>Disco</strong>: {{ servidor.disco }} Gb
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class='col-md-6'>
-                                    <h3>R$ {{ servidor.preco }}
-                                        <small>/Mês</small>
-                                    </h3>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class='pull-right col-md-2 text-center'><br/>
-
-                        </div>
-
                     </div>
                 {% endfor %}
             </div>
-        </div>
 
+            <div class="form-group"><br>
+                <strong>CPU</strong>
+                <select name="cpu_p" id="cpu_p" class="form-control">
+                    <option value="">Todas</option>
+                    {% for c in cpu %}
+                        <option onselect="" value="{{ c }}">{{ c }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group"><br>
+                <strong>Ram</strong>
+                <select name="ram_p" id="ram_p" class="form-control">
+                    <option value="">Todas</option>
+                    {% for r in ram %}
+                        <option value="{{ r }}">{{ r }} Gb</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group"><br>
+                <strong>Disco</strong>
+                <select name="disco_p" id="disco_p" class="form-control">
+                    <option value="">Todas</option>
+                    {% for d in disco %}
+                        <option value="{{ d }}">{{ d }} Gb</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <div class="row col-md-9">
+
+        <div class="searchable-container">
+
+            <div class='itemss col-lg-12 clearfix' style='padding:10px 0; background:#F1F1F1'>
+
+
+                <div class='pull-left col-md-5'>
+                    <div class='col-md-6'>
+                        <strong style='color:#777'>Provedor</strong>
+                    </div>
+                    <div class='col-md-6'>
+                        <strong style='color:#777'>Descricao</strong>
+                    </div>
+
+                </div>
+                <div class='pull-left col-md-5'>
+                    <div class='col-md-6'>
+                        <strong style='color:#777'>Recursos</strong>
+
+                    </div>
+                    <div class='col-md-6'>
+                        <form id="form_order" role="form" action="/order/"
+                              method="post">
+                            <!--<button name="order_price" value="{{ order_price }}" type="submit">#}
+                                Preço#}
+                                <small>(Reais)</small>#}
+                            </button>-->
+                            <a name="order_price" href="/order/?order_price={{ order_price }}"
+                               type="submit">
+                                <strong style="color:#777">Preço
+                                    <small>(Reais)</small>
+                                </strong>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+
+                <div class='pull-right col-md-2 text-right'><br/></div>
+
+
+            </div>
+            {% for servidor in servidores %}
+                <div class='items col-lg-16 clearfix'
+                     style='padding:15px 0; background:#F6F6F6'>
+
+                    <div class='content'>
+
+                        <div class='pull-left col-md-5 x'>
+                            <div class='col-md-6'><br/>
+                                <small>{{ servidor.provedor }}</small>
+                                <img src="{{ servidor.provedor.logomarca.url }}"
+                                     alt='' class='img-responsive'/>
+                            </div>
+                            <div class='col-md-6 text-left'><br/>
+                                <h5>{{ servidor.descricao }}<br/>
+                                </h5>
+                            </div>
+                        </div>
+
+                        <div class='pull-left col-md-5 y'>
+                            <div class='col-md-'><br/>
+                                <div class="col-md-6">
+                                    <small><strong>CPU</strong>: {{ servidor.cpu }}</small>
+                                    <br/>
+                                    <small><strong>Ram</strong>: {{ servidor.ram }} Gb</small>
+                                    <br/>
+                                    <small><strong>Disco</strong>: {{ servidor.disco }} Gb
+                                    </small>
+                                </div>
+                            </div>
+                            <div class='col-md-6'>
+                                <h3>R$ {{ servidor.preco }}
+                                    <small>/Mês</small>
+                                </h3>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class='pull-right col-md-2 text-center'><br/>
+
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
 {% endblock %}
+</div>
 </body>
 </html>

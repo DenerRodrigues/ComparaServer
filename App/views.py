@@ -10,7 +10,8 @@ def index(request):
                                           'provedores': get_provedores(),
                                           'cpu': get_cpu(),
                                           'ram': get_ram(),
-                                          'disco': get_disco()})
+                                          'disco': get_disco(),
+                                          'order_price': '1'})
 
 
 def get_servidores():
@@ -37,10 +38,16 @@ def get_disco():
 def form_filtro(request):
     servidores = get_servidores()
 
+    preco = request.GET['filter_price']
     cpu = request.GET['cpu_p']
     disco = request.GET['disco_p']
     ram = request.GET['ram_p']
     provedor = request.GET['provider']
+
+    if preco:
+        servidores = filter(None, [
+            s if float(str(s.preco)) <= float(str(preco).replace(',', '.')) else None for s in
+            servidores])
 
     if cpu:
         servidores = filter(None, [s if str(s.cpu) == cpu else None for s in servidores])
@@ -58,4 +65,25 @@ def form_filtro(request):
                                           'provedores': get_provedores(),
                                           'cpu': get_cpu(),
                                           'ram': get_ram(),
-                                          'disco': get_disco()})
+                                          'disco': get_disco(),
+                                          'order_price': '1'})
+
+
+def form_order(request):
+    servidores = get_servidores()
+
+    order = request.GET['order_price'] or '1'
+
+    if order == '1':
+        order = '2'
+        servidores = servidores.order_by("preco")
+    elif order == '2':
+        order = '1'
+        servidores = servidores.reverse()
+
+    return render(request, "index.html", {'servidores': servidores,
+                                          'provedores': get_provedores(),
+                                          'cpu': get_cpu(),
+                                          'ram': get_ram(),
+                                          'disco': get_disco(),
+                                          'order_price': order})
