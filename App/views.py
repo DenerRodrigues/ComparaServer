@@ -71,12 +71,12 @@ def form_filtro(request):
 
 def form_order(request):
     servidores = get_servidores()
+    servidores = servidores.order_by("preco")
 
     order = request.GET['order_price'] or '1'
 
     if order == '1':
         order = '2'
-        servidores = servidores.order_by("preco")
     elif order == '2':
         order = '1'
         servidores = servidores.reverse()
