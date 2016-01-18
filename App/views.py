@@ -16,6 +16,7 @@ def index(request):
 
 def get_servidores():
     servidores = Servidor.objects.all()
+    servidores = servidores.order_by("preco")
     return servidores
 
 
@@ -71,14 +72,13 @@ def form_filtro(request):
 
 def form_order(request):
     servidores = get_servidores()
-    servidores = servidores.order_by("preco")
 
     order = request.GET['order_price'] or '1'
 
-    if order == '1':
-        order = '2'
-    elif order == '2':
+    if order == '2':
         order = '1'
+    elif order == '1':
+        order = '2'
         servidores = servidores.reverse()
 
     return render(request, "index.html", {'servidores': servidores,
